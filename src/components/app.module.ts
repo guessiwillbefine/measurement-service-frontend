@@ -22,6 +22,11 @@ import {UserRepositoryImpl} from "../service/repository/user/UserRepositoryImpl"
 import {FactoryComponent} from "./factory/FactoryComponent";
 import {FactoryService} from "../service/factory/FactoryService";
 import {FactoryRepositoryImpl} from "../service/repository/factory/FactoryRepositoryImpl";
+import {MachineComponent} from "./machine/MachineComponent";
+import {MachineDetailsComponent} from "./machine-details/MachineDetailsComponent";
+import {MachineService} from "../service/machine/MachineService";
+import {MachineRepositoryImpl} from "../service/repository/machine/MachineRepositoryImpl";
+import {SensorComponent} from "./sensor/SensorComponent";
 
 @NgModule({
   declarations: [
@@ -30,7 +35,10 @@ import {FactoryRepositoryImpl} from "../service/repository/factory/FactoryReposi
     AboutComponent,
     AccountComponent,
     MainComponent,
-    FactoryComponent
+    FactoryComponent,
+    MachineComponent,
+    MachineDetailsComponent,
+    SensorComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +57,9 @@ import {FactoryRepositoryImpl} from "../service/repository/factory/FactoryReposi
     UserService,
     UserRepositoryImpl,
     FactoryService,
-    FactoryRepositoryImpl],
+    FactoryRepositoryImpl,
+    MachineService,
+    MachineRepositoryImpl],
   bootstrap: [HeaderComponent]
 })
 export class AppModule {

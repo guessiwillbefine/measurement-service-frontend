@@ -12,9 +12,15 @@ export class UrlConstants {
     public static readonly CURRENT_USER = `${UrlConstants.ADDRESS}/users/account`;
   }
 
-  public static readonly FACTORY = class UserConstants {
+  public static readonly FACTORY = class FactoryConstants {
     public static readonly FACTORY_BY_ID = function (id: number) {
       return `${UrlConstants.ADDRESS}/factories/${id}`;
+    }
+  }
+
+  public static readonly MACHINE = class {
+    public static readonly MACHINE_BY_ID = function (id: string) {
+      return `${UrlConstants.ADDRESS}/machines/${id}`
     }
   }
 }

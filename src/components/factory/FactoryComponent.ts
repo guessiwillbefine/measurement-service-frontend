@@ -14,10 +14,8 @@ export class FactoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.factoryService.getCurrentFactory().subscribe(response => {
-      console.log(response)
       this.factory = response
     })
-    console.log('xui after OnInit()')
   }
 
 }
