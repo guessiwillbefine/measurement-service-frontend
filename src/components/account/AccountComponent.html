@@ -1,9 +1,42 @@
-<div>
-  User:
-  <div>
-    <h1>
-      {{this.user.firstName}} {{this.user.lastName}}
-    </h1>
-
-  </div>
+<h1>Account</h1>
+<div [hidden]="editMode">
+  <table style="font-size: 16px; margin: 0 auto; text-align: left">
+    <tr>
+      <td>Username :</td>
+      <td>{{this.user.username | titlecase}}</td>
+    </tr>
+    <tr>
+      <td>Name :</td>
+      <td>{{this.user.firstName | titlecase}}</td>
+    </tr>
+    <tr>
+      <td>Surname :</td>
+      <td>{{this.user.lastName | titlecase}}</td>
+    </tr>
+    <tr>
+      <td>Email :</td>
+      <td>{{this.user.email | titlecase}}</td>
+    </tr>
+    <tr>
+      <td>Role :</td>
+      <td>{{this.user.role}}</td>
+    </tr>
+    <tr>
+      <td>Status :</td>
+      <td>{{this.user.status}}</td>
+    </tr>
+    <tr>
+      <td>Factory :</td>
+      <td>{{ this.user.factoryId == null ? "data is not present" : String(this.user.factoryId) | titlecase }}</td>
+    </tr>
+    <tr>
+      <td>Notification type :</td>
+      <td style="font-style: italic"> TODO</td>
+    </tr>
+    <tr>
+      <td>Notification destination :</td>
+      <td style="font-style: italic"> TODO</td>
+    </tr>
+  </table>
+  <button mat-flat-button color="primary" (click)=" this.editMode = true ">edit</button>
 </div>
