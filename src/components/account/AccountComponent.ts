@@ -10,9 +10,9 @@ import {UserService} from "../../service/user/UserService";
 export class AccountComponent implements OnInit {
 
   user: User;
-
-  constructor(private userService: UserService) {
-  }
+  editMode: boolean = false;
+  readonly String = String;
+  constructor(private userService: UserService) {}
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe(x=> this.user = x);
   }
