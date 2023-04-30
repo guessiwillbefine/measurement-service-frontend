@@ -1,0 +1,9 @@
+<div class="machine-container" [ngClass]='{
+"machine-active": machine.activity.toString() === "ACTIVE",
+"machine-inactive": machine.activity.toString() === "INACTIVE"}'>
+
+<div><a routerLink="/machines/{{ machine.id }}">{{ machine.name }}</a></div>
+<div>{{ machine.model }}</div>
+<div>{{ machine.type }}</div>
+<div>{{ machine.activity }}</div>
+</div>

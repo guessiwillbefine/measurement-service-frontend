@@ -1,0 +1,4 @@
+<div class="factory-name">{{ factory.name }}</div>
+<div *ngFor="let machine of factory.machines">
+  <app-machine [machine]="machine"></app-machine>
+</div>

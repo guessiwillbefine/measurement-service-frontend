@@ -19,6 +19,14 @@ import {AuthGuard} from "../service/guard/AuthGuard";
 import {HttpClientModule} from "@angular/common/http";
 import {UserService} from "../service/user/UserService";
 import {UserRepositoryImpl} from "../service/repository/user/UserRepositoryImpl";
+import {FactoryComponent} from "./factory/FactoryComponent";
+import {FactoryService} from "../service/factory/FactoryService";
+import {FactoryRepositoryImpl} from "../service/repository/factory/FactoryRepositoryImpl";
+import {MachineComponent} from "./machine/MachineComponent";
+import {MachineDetailsComponent} from "./machine-details/MachineDetailsComponent";
+import {MachineService} from "../service/machine/MachineService";
+import {MachineRepositoryImpl} from "../service/repository/machine/MachineRepositoryImpl";
+import {SensorComponent} from "./sensor/SensorComponent";
 
 @NgModule({
   declarations: [
@@ -26,7 +34,11 @@ import {UserRepositoryImpl} from "../service/repository/user/UserRepositoryImpl"
     AuthComponent,
     AboutComponent,
     AccountComponent,
-    MainComponent
+    MainComponent,
+    FactoryComponent,
+    MachineComponent,
+    MachineDetailsComponent,
+    SensorComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +55,11 @@ import {UserRepositoryImpl} from "../service/repository/user/UserRepositoryImpl"
     JwtService,
     AuthGuard,
     UserService,
-    UserRepositoryImpl],
+    UserRepositoryImpl,
+    FactoryService,
+    FactoryRepositoryImpl,
+    MachineService,
+    MachineRepositoryImpl],
   bootstrap: [HeaderComponent]
 })
 export class AppModule {

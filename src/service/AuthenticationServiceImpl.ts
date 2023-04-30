@@ -33,8 +33,9 @@ export class AuthenticationServiceImpl implements AuthenticationService {
     fetch(this.authConstants.AUTHENTICATION, options)
       .then(response => response.json())
       .then(data => {
+        console.log('xui')
         this.jwtService.saveToken(data.token);
-        this.router.navigate(['/main']);
+        this.router.navigate(['/factory']);
       })
       .catch(error => {
         console.error(error)
