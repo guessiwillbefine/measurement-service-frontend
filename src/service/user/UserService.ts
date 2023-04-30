@@ -7,6 +7,8 @@ export class UserService {
   constructor(private userRepo: UserRepositoryImpl) {}
 
   getCurrentUser() {
+    console.log('UserService.getCurrentUser()')
+
     return this.userRepo.getCurrentUser().pipe(map(response => {
       return response as User;
     }));
