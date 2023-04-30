@@ -1,8 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {User} from "../../entity/User";
-import {JwtService} from "../../storage/JwtService";
-import {UrlConstants} from "../../util/constants/UrlConstants";
-import {HttpClient} from "@angular/common/http";
+import {UserService} from "../../service/user/UserService";
 
 @Component({
   selector: 'registration-component',
@@ -11,26 +9,11 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AccountComponent implements OnInit {
 
-  user: string;
-  userConstants = UrlConstants.USER;
+  user: User;
 
-  constructor(private jwtService: JwtService, private http: HttpClient) {
+  constructor(private userService: UserService) {
   }
-
   ngOnInit(): void {
-    this.setCurrentUserRequest()
-    console.log(this.user)
-  }
-
-  setCurrentUserRequest() {
-    const options =
-      {
-        headers: {'Authorization': `Bearer ${this.jwtService.getToken()}`},
-      };
-
-    this.http.get<User>(this.userConstants.CURRENT_USER, options)
-      .subscribe(response => {
-        this.user = response.firstName
-      });
+    this.userService.getCurrentUser().subscribe(x=> this.user = x);
   }
 }

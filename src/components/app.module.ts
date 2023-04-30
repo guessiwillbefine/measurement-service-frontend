@@ -17,6 +17,8 @@ import {AccountComponent} from "./account/AccountComponent";
 import {MainComponent} from "./main/MainComponent";
 import {AuthGuard} from "../service/guard/AuthGuard";
 import {HttpClientModule} from "@angular/common/http";
+import {UserService} from "../service/user/UserService";
+import {UserRepositoryImpl} from "../service/repository/user/UserRepositoryImpl";
 
 @NgModule({
   declarations: [
@@ -37,7 +39,11 @@ import {HttpClientModule} from "@angular/common/http";
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthenticationServiceImpl, JwtService, AuthGuard],
+  providers: [AuthenticationServiceImpl,
+    JwtService,
+    AuthGuard,
+    UserService,
+    UserRepositoryImpl],
   bootstrap: [HeaderComponent]
 })
 export class AppModule {
