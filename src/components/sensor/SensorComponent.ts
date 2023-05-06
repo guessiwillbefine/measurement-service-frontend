@@ -3,7 +3,8 @@ import {Sensor} from "../../entity/Sensor";
 
 @Component({
   selector: 'app-sensor',
-  templateUrl: './SensorComponent.html'
+  templateUrl: './SensorComponent.html',
+  styleUrls: ['./SensorComponent.css']
 })
 export class SensorComponent {
   @Input() sensor: Sensor;

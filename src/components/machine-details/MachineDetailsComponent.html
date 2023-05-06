@@ -1,4 +1,8 @@
-<div>{{ machine.name }}</div>
-<div *ngFor="let sensor of machine.sensors">
-  <app-sensor [sensor]="sensor"></app-sensor>
+<div *ngIf="machine$ | async as machine">
+  <div class=" machine-name">
+    {{ machine.name }}
+  </div>
+  <div *ngFor="let sensor of machine.sensors">
+    <app-sensor [sensor]="sensor"></app-sensor>
+  </div>
 </div>
