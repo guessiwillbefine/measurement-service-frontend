@@ -27,6 +27,7 @@ import {MachineDetailsComponent} from "./machine-details/MachineDetailsComponent
 import {MachineService} from "../service/machine/MachineService";
 import {MachineRepositoryImpl} from "../service/repository/machine/MachineRepositoryImpl";
 import {SensorComponent} from "./sensor/SensorComponent";
+import {MeasureComponent} from "./measure/MeasureComponent";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {SensorComponent} from "./sensor/SensorComponent";
     FactoryComponent,
     MachineComponent,
     MachineDetailsComponent,
-    SensorComponent
+    SensorComponent,
+    MeasureComponent
   ],
   imports: [
     BrowserModule,
