@@ -10,7 +10,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {AuthComponent} from "./authentication/auth.component";
 import {MatInputModule} from "@angular/material/input";
 import {AuthenticationServiceImpl} from "../service/AuthenticationServiceImpl";
-import {FormsModule} from "@angular/forms";
+import {FormBuilder, FormsModule} from "@angular/forms";
 import {JwtService} from "../storage/JwtService";
 import {AboutComponent} from "./about/AboutComponent";
 import {AccountComponent} from "./account/AccountComponent";
@@ -49,7 +49,7 @@ import {SensorComponent} from "./sensor/SensorComponent";
     MatButtonModule,
     MatInputModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [AuthenticationServiceImpl,
     JwtService,
@@ -59,7 +59,8 @@ import {SensorComponent} from "./sensor/SensorComponent";
     FactoryService,
     FactoryRepositoryImpl,
     MachineService,
-    MachineRepositoryImpl],
+    MachineRepositoryImpl,
+    FormBuilder],
   bootstrap: [HeaderComponent]
 })
 export class AppModule {
