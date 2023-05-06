@@ -69,7 +69,7 @@
           },
           "defaultConfiguration": "development",
           "options": {
-            "ssl": false,
+            "ssl": true,
             "host": "localhost",
             "port": 4200
           }
