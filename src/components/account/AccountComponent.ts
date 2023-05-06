@@ -1,11 +1,11 @@
 import {Component, OnInit} from "@angular/core";
 import {User} from "../../entity/User";
-import {UserContext} from "../../storage/UserContext";
-import {HttpMethod} from "../../util/constants/HttpMethod";
-import {JwtService} from "../../storage/JwtService";
-import {UrlConstants} from "../../util/constants/UrlConstants";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {ContentType} from "../../util/constants/ContentType";
+import {Factory} from "../../entity/Factory";
+import {UserService} from "../../service/user/UserService";
+import {catchError, Observable} from "rxjs";
+import {ValidationError, ValidationErrorsResponse} from "../../util/response/ValidationError";
+import {HttpErrorResponse} from "@angular/common/http";
+import {FactoryService} from "../../service/factory/FactoryService";
 
 @Component({
   selector: 'registration-component',
@@ -14,31 +14,50 @@ import {ContentType} from "../../util/constants/ContentType";
 })
 export class AccountComponent implements OnInit {
 
-  user: User;
-  userConstants = UrlConstants.USER;
+  /** текущий пользователь */
+  user$: Observable<User>;
+  factory$: Observable<Factory>
 
-  constructor(private jwtService: JwtService) {
-  }
+  /** ошибки валидации с бекенда */
+  errorList: ValidationErrorsResponse<ValidationError[]>;
 
+  /** копия пользователя для блока редактирования */
+  toUpdate: User;
+
+  emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  editMode: boolean = false;
+  readonly String = String;
+
+  constructor(private userService: UserService, public factoryService: FactoryService) {}
+
+  /** текущего пользователя сохраним как стрим, а в subscribe сохраним копию объекта для редактирования */
   ngOnInit(): void {
-    this.setCurrentUserRequest();
-    this.user = UserContext.getUser();
+    this.userInit();
+    this.factoryInit();
   }
 
-  setCurrentUserRequest() {
-    const options: RequestInit =
-      {
-        method: HttpMethod.GET,
-        headers: {
-          'Content-Type': ContentType.JSON,
-          'Authorization': `Bearer ${this.jwtService.getToken()}`,
-        },
-        mode: 'cors'
-      };
+  cancelUpdate() {
+    this.editMode = false
+    this.userInit();
+    this.errorList.response.splice(0, this.errorList.response.length);
+  }
 
-    fetch(this.userConstants.CURRENT_USER, options)
-      .then(response => response.json())
-      .then(data => UserContext.setUserContext(data))
-      .catch(err => console.log(err));
+  updateUser() {
+    this.userService.edit(this.toUpdate)
+      .pipe(x => this.user$ = x)
+      .pipe(catchError((error: HttpErrorResponse): any => this.errorList = error.error))
+      .subscribe(() => this.editMode = false);
+  }
+
+  private userInit() {
+    this.userService.getCurrentUser()
+      .pipe(x => this.user$ = x)
+      .subscribe(toUpdate => this.toUpdate = toUpdate);
+  }
+
+  private factoryInit() {
+    this.factoryService.getCurrentFactory()
+      .pipe(factory => this.factory$ = factory)
+      .subscribe();
   }
 }

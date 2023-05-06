@@ -1,12 +1,14 @@
-import {Role} from "./Role";
 import {AccountStatus} from "./AccountStatus";
+import {Role} from "./Role";
 
 export interface User {
-  name: string;
-  surname: string;
-  username: string;
-  password: string;
+  id: number,
+  username: string
+  firstName: string;
+  lastName: string;
   email: string;
   role: Role;
   status: AccountStatus;
+  factoryId: number;
 }
+

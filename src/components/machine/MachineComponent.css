@@ -1,0 +1,32 @@
+.machine-container {
+  border: 2px solid;
+  border-radius: 15px;
+  padding: 10px;
+  width: 75%;
+  margin: 0 auto 10px;
+}
+
+.machine-name {
+  font-weight: bold;
+}
+
+.machine-details {
+  margin-top: 5px;
+}
+
+.machine-detail-label {
+  font-weight: bold;
+  display: inline-block;
+  width: 100px;
+}
+
+.machine-detail-value {
+  display: inline-block;
+}
+
+.machine-active{
+   border-color: forestgreen;
+}
+.machine-inactive{
+  border-color: orangered;
+}
