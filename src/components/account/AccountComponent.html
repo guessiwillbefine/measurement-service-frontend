@@ -29,7 +29,9 @@
       </tr>
       <tr>
         <td>Factory :</td>
-        <td>{{asyncUser.factoryId == null ? "data is not present" : String(asyncUser.factoryId) | titlecase }}</td>
+        <td>
+          <div *ngIf=" factory$ | async as factory "> {{factory.name}} </div>
+        </td>
       </tr>
       <tr>
         <td>Notification type :</td>
@@ -75,10 +77,10 @@
       </div>
     </div>
     <br>
-      <div>
-        <button mat-flat-button color="primary" (click)="cancelUpdate()" style="margin-right: 10px">back</button>
-        <button mat-flat-button color="primary" type="submit">save</button>
-      </div>
+    <div>
+      <button mat-flat-button color="primary" (click)="cancelUpdate()" style="margin-right: 10px">back</button>
+      <button mat-flat-button color="primary" type="submit">save</button>
+    </div>
   </form>
 </div>
 
