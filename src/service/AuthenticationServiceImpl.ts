@@ -9,12 +9,12 @@ import {AuthenticationService} from "./AuthenticationService";
 @Injectable()
 export class AuthenticationServiceImpl implements AuthenticationService {
   private readonly authConstants = UrlConstants.AUTHENTICATION;
-  private readonly userConstants = UrlConstants.USER;
 
   constructor(private jwtService: JwtService, private router: Router) {
   }
 
   authenticate(username: string, password: string): void {
+    console.log(this.authConstants.AUTHENTICATION);
     const data =
       {
         username: username,
