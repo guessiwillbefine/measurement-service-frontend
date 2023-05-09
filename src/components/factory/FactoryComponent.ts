@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {FactoryService} from "../../service/factory/FactoryService";
 import {Factory} from "../../entity/Factory";
 
@@ -8,7 +8,8 @@ import {Factory} from "../../entity/Factory";
   styleUrls: ['./FactoryComponent.css']
 })
 export class FactoryComponent implements OnInit {
-  public factory: Factory;
+
+  @Input() public factory: Factory;
 
   constructor(public factoryService: FactoryService) {}
 

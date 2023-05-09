@@ -14,6 +14,8 @@ export class UrlConstants {
   }
 
   public static readonly FACTORY = class FactoryConstants {
+    public static readonly ALL_FACTORIES = `${UrlConstants.ADDRESS}/factories/search`;
+
     public static readonly FACTORY_BY_ID = function (id: number) {
       return `${UrlConstants.ADDRESS}/factories/${id}`;
     }

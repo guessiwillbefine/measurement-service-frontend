@@ -1,0 +1,4 @@
+<div>Admin account</div>
+<div *ngFor="let factory of factories$ | async">
+  <app-factory [factory]="factory"></app-factory>
+</div>

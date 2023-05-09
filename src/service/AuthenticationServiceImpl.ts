@@ -30,6 +30,7 @@ export class AuthenticationServiceImpl implements AuthenticationService {
         body: JSON.stringify(data),
         mode: 'cors'
       };
+    console.log("before fetch");
     fetch(this.authConstants.AUTHENTICATION, options)
       .then(response => response.json())
       .then(data => {
@@ -38,7 +39,7 @@ export class AuthenticationServiceImpl implements AuthenticationService {
         this.router.navigate(['/factory']);
       })
       .catch(error => {
-        console.error(error)
+        console.error("XUIIIIII " + error)
         this.router.navigate(['/auth']);
       });
   }

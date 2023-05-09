@@ -13,7 +13,7 @@ import {AuthenticationServiceImpl} from "../service/AuthenticationServiceImpl";
 import {FormBuilder, FormsModule} from "@angular/forms";
 import {JwtService} from "../storage/JwtService";
 import {AboutComponent} from "./about/AboutComponent";
-import {AccountComponent} from "./account/AccountComponent";
+import {AccountComponent} from "./account/user-account/AccountComponent";
 import {MainComponent} from "./main/MainComponent";
 import {AuthGuard} from "../service/guard/AuthGuard";
 import {HttpClientModule} from "@angular/common/http";
@@ -28,6 +28,8 @@ import {MachineService} from "../service/machine/MachineService";
 import {MachineRepositoryImpl} from "../service/repository/machine/MachineRepositoryImpl";
 import {SensorComponent} from "./sensor/SensorComponent";
 import {MeasureComponent} from "./measure/MeasureComponent";
+import {AdminAccountComponent} from "./account/admin-account/AdminAccountComponent";
+import {RoleGuard} from "../service/guard/RoleGuard";
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import {MeasureComponent} from "./measure/MeasureComponent";
     AuthComponent,
     AboutComponent,
     AccountComponent,
+    AdminAccountComponent,
     MainComponent,
     FactoryComponent,
     MachineComponent,
@@ -62,7 +65,8 @@ import {MeasureComponent} from "./measure/MeasureComponent";
     FactoryRepositoryImpl,
     MachineService,
     MachineRepositoryImpl,
-    FormBuilder],
+    FormBuilder,
+    RoleGuard],
   bootstrap: [HeaderComponent]
 })
 export class AppModule {

@@ -1,11 +1,11 @@
 import {Component, OnInit} from "@angular/core";
-import {User} from "../../entity/User";
-import {Factory} from "../../entity/Factory";
-import {UserService} from "../../service/user/UserService";
+import {User} from "../../../entity/User";
+import {Factory} from "../../../entity/Factory";
+import {UserService} from "../../../service/user/UserService";
 import {catchError, Observable} from "rxjs";
-import {ValidationError, ValidationErrorsResponse} from "../../util/response/ValidationError";
+import {ValidationError, ValidationErrorsResponse} from "../../../util/response/ValidationError";
 import {HttpErrorResponse} from "@angular/common/http";
-import {FactoryService} from "../../service/factory/FactoryService";
+import {FactoryService} from "../../../service/factory/FactoryService";
 
 @Component({
   selector: 'registration-component',
