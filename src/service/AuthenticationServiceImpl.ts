@@ -5,15 +5,16 @@ import {HttpMethod} from "../util/constants/HttpMethod";
 import {JwtService} from "../storage/JwtService";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "./AuthenticationService";
+import {UserService} from "./user/UserService";
 
 @Injectable()
 export class AuthenticationServiceImpl implements AuthenticationService {
   private readonly authConstants = UrlConstants.AUTHENTICATION;
 
-  constructor(private jwtService: JwtService, private router: Router) {
+  constructor(private jwtService: JwtService, private router: Router, private userService: UserService) {
   }
 
-  authenticate(username: string, password: string): void {
+  authenticate(username: string, password: string) {
     console.log(this.authConstants.AUTHENTICATION);
     const data =
       {
@@ -30,16 +31,14 @@ export class AuthenticationServiceImpl implements AuthenticationService {
         body: JSON.stringify(data),
         mode: 'cors'
       };
-    console.log("before fetch");
+
     fetch(this.authConstants.AUTHENTICATION, options)
       .then(response => response.json())
       .then(data => {
-        console.log('xui')
         this.jwtService.saveToken(data.token);
-        this.router.navigate(['/factory']);
+        this.router.navigate(['/account']);
       })
       .catch(error => {
-        console.error("XUIIIIII " + error)
         this.router.navigate(['/auth']);
       });
   }

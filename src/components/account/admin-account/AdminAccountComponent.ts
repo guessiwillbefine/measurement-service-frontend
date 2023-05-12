@@ -31,11 +31,4 @@ export class AdminAccountComponent implements OnInit{
       .pipe(factories => this.factories$ = factories)
       .subscribe();
   }
-
-  // private factoriesInit() {
-  //   this.factoryService.getAllFactories()
-  //     .pipe(map(factories => this.factories$ = factories))
-  //     .subscribe();
-  // }
-
 }

@@ -8,3 +8,7 @@
 /*.mat-form-field-label  {*/
 /*  color: blue;*/
 /*}*/
+
+.auth-container {
+  align-content: center;
+}

@@ -1,21 +1,24 @@
-<form style="align-content: center" (ngSubmit)="authenticate()">
-  <mat-form-field appearance="outline">
-    <mat-label>login</mat-label>
-    <input matInput placeholder="..." [(ngModel)]="this.username" name="username">
-  </mat-form-field>
-  <br/>
-  <mat-form-field appearance="outline">
-    <mat-label>password</mat-label>
-    <input matInput placeholder="..."
-           type="password" style="border-radius: 15px"
-           class="my-custom-class mat-form-field-autofill-control"
-           [(ngModel)]="this.password"
-    name="password">
-  </mat-form-field>
-  <br/>
-  <button mat-button color="accent" type="submit">Login</button>
-  <!--<a mat-button href="https://www.google.com/" target="_blank" color="accent">Register new user</a>-->
-</form>
+<auth-header></auth-header>
+<div class="auth-container">
+  <form (ngSubmit)="authenticate()">
+    <mat-form-field appearance="outline">
+      <mat-label>login</mat-label>
+      <input matInput placeholder="..." [(ngModel)]="this.username" name="username">
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline">
+      <mat-label>password</mat-label>
+      <input matInput placeholder="..."
+             type="password" style="border-radius: 15px"
+             class="my-custom-class mat-form-field-autofill-control"
+             [(ngModel)]="this.password"
+             name="password">
+    </mat-form-field>
+    <br/>
+    <button mat-button color="accent" type="submit">Login</button>
+    <!--<a mat-button href="https://www.google.com/" target="_blank" color="accent">Register new user</a>-->
+  </form>
+</div>
 
 
 

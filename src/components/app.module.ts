@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
-import {HeaderComponent} from './header/header.component';
+import {HeaderComponent} from './header/main-header/header.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
@@ -19,7 +19,7 @@ import {AuthGuard} from "../service/guard/AuthGuard";
 import {HttpClientModule} from "@angular/common/http";
 import {UserService} from "../service/user/UserService";
 import {UserRepositoryImpl} from "../service/repository/user/UserRepositoryImpl";
-import {FactoryComponent} from "./factory/FactoryComponent";
+import {UserFactoryComponent} from "./user-factory/user-factory.component";
 import {FactoryService} from "../service/factory/FactoryService";
 import {FactoryRepositoryImpl} from "../service/repository/factory/FactoryRepositoryImpl";
 import {MachineComponent} from "./machine/MachineComponent";
@@ -30,20 +30,30 @@ import {SensorComponent} from "./sensor/SensorComponent";
 import {MeasureComponent} from "./measure/MeasureComponent";
 import {AdminAccountComponent} from "./account/admin-account/AdminAccountComponent";
 import {RoleGuard} from "../service/guard/RoleGuard";
+import {AddMachineComponent} from "./add-machine/AddMachineComponent";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
+import {FactoryComponent} from "./factory/factory.component";
+import {RouterComponent} from "./router/router.component";
+import {AuthHeaderComponent} from "./header/auth-header/auth-header.component";
 
 @NgModule({
   declarations: [
-    HeaderComponent,
+    RouterComponent,
     AuthComponent,
+    HeaderComponent,
     AboutComponent,
     AccountComponent,
     AdminAccountComponent,
     MainComponent,
-    FactoryComponent,
+    UserFactoryComponent,
     MachineComponent,
     MachineDetailsComponent,
     SensorComponent,
-    MeasureComponent
+    MeasureComponent,
+    AddMachineComponent,
+    FactoryComponent,
+    AuthHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +65,8 @@ import {RoleGuard} from "../service/guard/RoleGuard";
     MatInputModule,
     FormsModule,
     HttpClientModule,
+    MatOptionModule,
+    MatSelectModule,
   ],
   providers: [AuthenticationServiceImpl,
     JwtService,
@@ -67,7 +79,7 @@ import {RoleGuard} from "../service/guard/RoleGuard";
     MachineRepositoryImpl,
     FormBuilder,
     RoleGuard],
-  bootstrap: [HeaderComponent]
+  bootstrap: [RouterComponent]
 })
 export class AppModule {
 }

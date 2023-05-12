@@ -18,8 +18,6 @@ export class RoleGuard {
   canActivate(): Observable<boolean> {
     return this.userService.getCurrentUser().pipe(
       map(user => {
-        console.log("User role = " + user.role);
-        console.log("Admin role = " + Role.ADMIN);
         if (user.role === Role.ADMIN) {
           return true;
         } else {
@@ -28,7 +26,6 @@ export class RoleGuard {
         }
       }),
       catchError( () => {
-        console.log("xUiiiiiiiiiiii");
         return of(false)}));
   }
 }

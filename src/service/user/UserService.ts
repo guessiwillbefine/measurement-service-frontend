@@ -4,7 +4,10 @@ import {User} from "../../entity/User";
 
 @Injectable()
 export class UserService {
-  constructor(private userRepo: UserRepositoryImpl) {}
+  private readonly USER_ROLE_KEY = 'user';
+
+  constructor(private userRepo: UserRepositoryImpl) {
+  }
 
   getCurrentUser() {
     return this.userRepo.getCurrentUser();
@@ -13,4 +16,17 @@ export class UserService {
   edit(user: User) {
     return this.userRepo.edit(user);
   }
+
+  // saveToStorage(user: User) {
+  //   window.localStorage.setItem(this.USER_ROLE_KEY, user.role);
+  // }
+
+  // getRole(): Observable<string> {
+  //   console.log("Before save")
+  //   return of(window.localStorage.getItem(this.USER_ROLE_KEY));
+  // }
+
+  // deleteRole() {
+  //   window.localStorage.removeItem(this.USER_ROLE_KEY);
+  // }
 }

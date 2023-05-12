@@ -12,4 +12,8 @@ export class MachineService {
     return this.machineRepository.getMachineById(id).pipe(
       tap(response => <Machine>response));
   }
+
+  addMachine(machine: Machine) {
+    return this.machineRepository.addMachine(machine);
+  }
 }
