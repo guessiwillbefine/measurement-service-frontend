@@ -4,7 +4,8 @@ import {User} from "../../entity/User";
 
 @Injectable()
 export class UserService {
-  constructor(private userRepo: UserRepositoryImpl) {}
+  constructor(private userRepo: UserRepositoryImpl) {
+  }
 
   getCurrentUser() {
     return this.userRepo.getCurrentUser();

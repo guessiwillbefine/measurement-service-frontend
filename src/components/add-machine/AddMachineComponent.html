@@ -1,0 +1,40 @@
+<header-component></header-component>
+<form (ngSubmit)="addMachine()">
+  <mat-form-field appearance="outline">
+    <mat-label>name:</mat-label>
+    <input matInput placeholder="..." [(ngModel)]="newMachine.name" name="name">
+  </mat-form-field>
+  <br/>
+  <mat-form-field appearance="outline">
+    <mat-label>model:</mat-label>
+    <input matInput placeholder="..." [(ngModel)]="newMachine.model" name="model">
+  </mat-form-field>
+  <br/>
+  <br>
+  <mat-form-field appearance="outline">
+    <mat-label>Type:</mat-label>
+    <mat-select [(ngModel)]="newMachine.type" name="type">
+      <mat-option *ngFor="let type of machineType | keyvalue" [value]="type.value">{{ type.value }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="outline">
+    <mat-label>Factory:</mat-label>
+    <mat-select [(ngModel)]="newMachine.factoryId" name="factory">
+      <mat-option *ngFor="let factory of factories$ | async" [value]="factory.id">{{ factory.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="this.errorList != null">
+    <div *ngFor="let error of errorList.response" style="color: #ca5980">
+      <div>{{error.field}} :
+        <div *ngFor="let err of error.errors" style="color: #4c4c4c">
+          {{err.text}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div>
+    <button mat-flat-button color="primary" type="submit">save</button>
+  </div>
+</form>

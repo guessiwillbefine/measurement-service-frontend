@@ -14,4 +14,8 @@ export class FactoryService {
     return this.factoryRepository.getCurrentFactory().pipe(
       tap(response => <Factory>response));
   }
+
+  getAllFactories() {
+    return this.factoryRepository.getAllFactories();
+  }
 }

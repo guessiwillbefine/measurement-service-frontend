@@ -1,0 +1,12 @@
+<div class="factory-container centered" (click)="this.showMachines = !showMachines">{{ factory.name }}</div>
+<ng-container *ngIf="showMachines">
+  <ng-container *ngIf="factory.machines.length > 0; else noMachines">
+    <div *ngFor="let machine of factory.machines">
+      <app-machine [machine]="machine"></app-machine>
+    </div>
+  </ng-container>
+  <ng-template #noMachines>
+    <div class="no-machine-found">No machines found.</div>
+  </ng-template>
+</ng-container>
+

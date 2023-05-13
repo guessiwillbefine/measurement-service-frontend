@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
-import {HeaderComponent} from './header/header.component';
+import {HeaderComponent} from './header/main-header/header.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
@@ -13,13 +13,13 @@ import {AuthenticationServiceImpl} from "../service/AuthenticationServiceImpl";
 import {FormBuilder, FormsModule} from "@angular/forms";
 import {JwtService} from "../storage/JwtService";
 import {AboutComponent} from "./about/AboutComponent";
-import {AccountComponent} from "./account/AccountComponent";
+import {AccountComponent} from "./account/user-account/AccountComponent";
 import {MainComponent} from "./main/MainComponent";
 import {AuthGuard} from "../service/guard/AuthGuard";
 import {HttpClientModule} from "@angular/common/http";
 import {UserService} from "../service/user/UserService";
 import {UserRepositoryImpl} from "../service/repository/user/UserRepositoryImpl";
-import {FactoryComponent} from "./factory/FactoryComponent";
+import {UserFactoryComponent} from "./user-factory/user-factory.component";
 import {FactoryService} from "../service/factory/FactoryService";
 import {FactoryRepositoryImpl} from "../service/repository/factory/FactoryRepositoryImpl";
 import {MachineComponent} from "./machine/MachineComponent";
@@ -28,19 +28,30 @@ import {MachineService} from "../service/machine/MachineService";
 import {MachineRepositoryImpl} from "../service/repository/machine/MachineRepositoryImpl";
 import {SensorComponent} from "./sensor/SensorComponent";
 import {MeasureComponent} from "./measure/MeasureComponent";
+import {AdminAccountComponent} from "./account/admin-account/AdminAccountComponent";
+import {RoleGuard} from "../service/guard/RoleGuard";
+import {AddMachineComponent} from "./add-machine/AddMachineComponent";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
+import {FactoryComponent} from "./factory/factory.component";
+import {RouterComponent} from "./router/router.component";
 
 @NgModule({
   declarations: [
-    HeaderComponent,
+    RouterComponent,
     AuthComponent,
+    HeaderComponent,
     AboutComponent,
     AccountComponent,
+    AdminAccountComponent,
     MainComponent,
-    FactoryComponent,
+    UserFactoryComponent,
     MachineComponent,
     MachineDetailsComponent,
     SensorComponent,
-    MeasureComponent
+    MeasureComponent,
+    AddMachineComponent,
+    FactoryComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +63,8 @@ import {MeasureComponent} from "./measure/MeasureComponent";
     MatInputModule,
     FormsModule,
     HttpClientModule,
+    MatOptionModule,
+    MatSelectModule,
   ],
   providers: [AuthenticationServiceImpl,
     JwtService,
@@ -62,8 +75,9 @@ import {MeasureComponent} from "./measure/MeasureComponent";
     FactoryRepositoryImpl,
     MachineService,
     MachineRepositoryImpl,
-    FormBuilder],
-  bootstrap: [HeaderComponent]
+    FormBuilder,
+    RoleGuard],
+  bootstrap: [RouterComponent]
 })
 export class AppModule {
 }

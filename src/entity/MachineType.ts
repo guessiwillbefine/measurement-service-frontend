@@ -1,11 +1,11 @@
 export enum MachineType {
-  MILLING,     // фрезерный
-  LATHE,       // токарный
-  DRILLING,    // сверлильный
-  WELDING,     // сварочный
-  MELTING,     // плавильный
-  PRESS,       // пресс
-  CONVEYOR,    // конвейер
-  MANIPULATOR, // манипулятор
-  OTHER,       // для всяких специфических машин
+  MILLING= 'MILLING',     // фрезерный
+  LATHE= 'LATHE',       // токарный
+  DRILLING = 'DRILLING',    // сверлильный
+  WELDING = 'WELDING',     // сварочный
+  MELTING = 'MELTING',     // плавильный
+  PRESS = 'PRESS',       // пресс
+  CONVEYOR = 'CONVEYOR',    // конвейер
+  MANIPULATOR = 'MANIPULATOR', // манипулятор
+  OTHER = 'OTHER',       // для всяких специфических машин
 }

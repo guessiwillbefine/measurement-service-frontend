@@ -29,6 +29,14 @@ export class FactoryRepositoryImpl implements FactoryRepository {
     );
   }
 
+  getAllFactories(): Observable<Factory[]> {
+    const options = {
+      headers: { Authorization: `Bearer ${this.jwtService.getToken()}` },
+    };
+
+    return this.http.get<Factory[]>(this.factoryConstants.ALL_FACTORIES, options);
+  }
+
   // ngOnInit(): void {
   //   console.log('Factory Repository start OnInit()')
   //

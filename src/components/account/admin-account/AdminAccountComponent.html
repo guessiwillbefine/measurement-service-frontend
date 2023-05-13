@@ -1,0 +1,5 @@
+<header-component></header-component>
+<button mat-flat-button color="primary" routerLink="/factories/add_machine">Добавить машину</button>
+<div *ngFor="let factory of factories$ | async">
+  <app-factory [factory]="factory"></app-factory>
+</div>

@@ -18,7 +18,6 @@ export class UserRepositoryImpl implements UserRepository {
       {
         headers: {'Authorization': `Bearer ${this.jwtService.getToken()}`},
       };
-
     return this.http.get<User>(this.userConstants.CURRENT_USER, options)
       .pipe(response => {
         return response;
