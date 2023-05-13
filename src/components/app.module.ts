@@ -35,7 +35,6 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {FactoryComponent} from "./factory/factory.component";
 import {RouterComponent} from "./router/router.component";
-import {AuthHeaderComponent} from "./header/auth-header/auth-header.component";
 
 @NgModule({
   declarations: [
@@ -52,8 +51,7 @@ import {AuthHeaderComponent} from "./header/auth-header/auth-header.component";
     SensorComponent,
     MeasureComponent,
     AddMachineComponent,
-    FactoryComponent,
-    AuthHeaderComponent
+    FactoryComponent
   ],
   imports: [
     BrowserModule,

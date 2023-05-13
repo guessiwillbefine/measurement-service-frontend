@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   title = 'measurement control app';
   public role = Role;
   public user$: Observable<User>
+  public token: string | null
 
   constructor(@Inject(AuthenticationServiceImpl) private authService: AuthenticationService,
               private router: Router,
@@ -25,7 +26,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.jwtService.getToken()) {
+    this.token = this.jwtService.getToken();
+    if (this.token) {
       this.userService.getCurrentUser().pipe(user => this.user$ = user).subscribe();
     }
   }

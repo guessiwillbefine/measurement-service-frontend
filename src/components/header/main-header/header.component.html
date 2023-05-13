@@ -2,30 +2,35 @@
   <span>{{title | titlecase}}</span>
   <span class="example-spacer"></span>
 
-  <div *ngIf="user$ | async as user">
-
-    <a mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"
-       *ngIf="user.role === this.role.ADMIN.toString(); else userLink" routerLink="/factories">
-      <mat-icon>home</mat-icon>
-    </a>
-
-    <ng-template #userLink>
-      <a mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="/factory">
-        <mat-icon>home</mat-icon>
-      </a>
-    </ng-template>
-  </div>
-
-  <a mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="/account">
-    <mat-icon>person</mat-icon>
-  </a>
 
   <a mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="/about">
     <mat-icon>help_outline</mat-icon>
   </a>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" (click)="logout()">
-    <mat-icon>logout</mat-icon>
-  </button>
+
+  <ng-container *ngIf="token">
+    <ng-container *ngIf="user$ | async as user">
+
+      <a mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"
+         *ngIf="user.role === this.role.ADMIN.toString(); else userLink" routerLink="/factories">
+        <mat-icon>home</mat-icon>
+      </a>
+
+      <ng-template #userLink>
+        <a mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="/factory">
+          <mat-icon>home</mat-icon>
+        </a>
+      </ng-template>
+    </ng-container>
+
+    <a mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="/account">
+      <mat-icon>person</mat-icon>
+    </a>
+
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+
+  </ng-container>
 </mat-toolbar>
 <div style="padding: 30px; text-align: center">
 </div>

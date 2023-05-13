@@ -1,3 +1,4 @@
+<header-component></header-component>
 <form (ngSubmit)="addMachine()">
   <mat-form-field appearance="outline">
     <mat-label>name:</mat-label>
@@ -23,18 +24,17 @@
       <mat-option *ngFor="let factory of factories$ | async" [value]="factory.id">{{ factory.name }}</mat-option>
     </mat-select>
   </mat-form-field>
-  <!--    <div *ngIf="this.errorList != null">-->
-  <!--      <div *ngFor="let error of errorList.response" style="color: #ca5980">-->
-  <!--        <div>{{error.field}} :-->
-  <!--          <div *ngFor="let err of error.errors" style="color: #4c4c4c">-->
-  <!--            {{err.text}}-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--    </div>-->
+  <div *ngIf="this.errorList != null">
+    <div *ngFor="let error of errorList.response" style="color: #ca5980">
+      <div>{{error.field}} :
+        <div *ngFor="let err of error.errors" style="color: #4c4c4c">
+          {{err.text}}
+        </div>
+      </div>
+    </div>
+  </div>
   <br>
   <div>
-    <!--      <button mat-flat-button color="primary" (click)="cancelUpdate()" style="margin-right: 10px">back</button>-->
     <button mat-flat-button color="primary" type="submit">save</button>
   </div>
 </form>
