@@ -35,6 +35,7 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {FactoryComponent} from "./factory/factory.component";
 import {RouterComponent} from "./router/router.component";
+import {rxStompServiceFactory, WebSocketService} from "../service/socket/WebSocketService";
 
 @NgModule({
   declarations: [
@@ -76,7 +77,11 @@ import {RouterComponent} from "./router/router.component";
     MachineService,
     MachineRepositoryImpl,
     FormBuilder,
-    RoleGuard],
+    RoleGuard,
+    {
+      provide: WebSocketService,
+      useFactory: rxStompServiceFactory,
+    }],
   bootstrap: [RouterComponent]
 })
 export class AppModule {

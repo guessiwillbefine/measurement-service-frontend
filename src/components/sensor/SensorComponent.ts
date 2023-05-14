@@ -8,4 +8,6 @@ import {Sensor} from "../../entity/Sensor";
 })
 export class SensorComponent {
   @Input() sensor: Sensor;
+  @Input() measure: number | undefined;
+
 }
