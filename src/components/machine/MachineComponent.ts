@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {Machine} from "../../entity/Machine";
+import {MachineForView} from "../../entity/MachineForView";
 import {MachineActivity} from "../../entity/MachineActivity";
 
 @Component({
@@ -9,5 +9,5 @@ import {MachineActivity} from "../../entity/MachineActivity";
 })
 export class MachineComponent {
   machineActivity = MachineActivity
-  @Input() machine: Machine;
+  @Input() machine: MachineForView;
 }

@@ -1,3 +1,3 @@
 export enum MeasureSystem {
-  SECONDS, CELSIUS, VOLT, AMPERE
+  SECONDS = 'SECONDS', CELSIUS = 'CELSIUS', VOLT = 'VOLT', AMPERE = 'AMPERE'
 }

@@ -35,6 +35,9 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {FactoryComponent} from "./factory/factory.component";
 import {RouterComponent} from "./router/router.component";
+import {AddSensorComponent} from "./add-sensor/add-sensor.component";
+import {SensorService} from "../service/sensor/SensorService";
+import {SensorRepositoryImpl} from "../service/repository/sensor/SensorRepositoryImpl";
 
 @NgModule({
   declarations: [
@@ -51,7 +54,8 @@ import {RouterComponent} from "./router/router.component";
     SensorComponent,
     MeasureComponent,
     AddMachineComponent,
-    FactoryComponent
+    FactoryComponent,
+    AddSensorComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +79,8 @@ import {RouterComponent} from "./router/router.component";
     FactoryRepositoryImpl,
     MachineService,
     MachineRepositoryImpl,
+    SensorService,
+    SensorRepositoryImpl,
     FormBuilder,
     RoleGuard],
   bootstrap: [RouterComponent]
