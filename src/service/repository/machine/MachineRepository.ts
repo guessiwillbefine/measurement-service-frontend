@@ -1,6 +1,6 @@
 import {Observable} from "rxjs";
-import {Machine} from "../../../entity/Machine";
+import {MachineForView} from "../../../entity/MachineForView";
 
 export interface MachineRepository {
-  getMachineById(id: string): Observable<Machine>
+  getMachineById(id: string): Observable<MachineForView>
 }

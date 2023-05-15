@@ -1,6 +1,6 @@
 import {Sensor} from "./Sensor";
 
-export interface Machine {
+export interface MachineForDto {
   id: number,
   name: string,
   model: string,

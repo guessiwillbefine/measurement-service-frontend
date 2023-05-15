@@ -1,10 +1,11 @@
 import {JwtService} from "../../../storage/JwtService";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Machine} from "../../../entity/Machine";
+import {MachineForView} from "../../../entity/MachineForView";
 import {MachineRepository} from "./MachineRepository";
 import {UrlConstants} from "../../../util/constants/UrlConstants";
 import {Injectable} from "@angular/core";
+import {MachineForDto} from "../../../entity/MachineForDto";
 
 @Injectable()
 export class MachineRepositoryImpl implements MachineRepository {
@@ -13,15 +14,15 @@ export class MachineRepositoryImpl implements MachineRepository {
   constructor(private jwtService: JwtService, private http: HttpClient) {
   }
 
-  getMachineById(id: string): Observable<Machine> {
+  getMachineById(id: string): Observable<MachineForView> {
     const options = {
       headers: {Authorization: `Bearer ${this.jwtService.getToken()}`},
     };
 
-    return this.http.get<Machine>(this.machineConstants.MACHINE_BY_ID(id), options);
+    return this.http.get<MachineForView>(this.machineConstants.MACHINE_BY_ID(id), options);
   }
 
-  addMachine(machine: Machine) {
+  addMachine(machine: MachineForDto) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -31,5 +32,24 @@ export class MachineRepositoryImpl implements MachineRepository {
 
     console.log("Before http.post<any>")
     return this.http.post<any>(this.machineConstants.ADD_MACHINE, machine, httpOptions);
+  }
+
+  deleteMachine(id: string): Observable<MachineForView> {
+    const options = {
+      headers: {Authorization: `Bearer ${this.jwtService.getToken()}`},
+    };
+    return this.http.delete<MachineForView>(this.machineConstants.MACHINE_BY_ID(id), options);
+  }
+
+  updateMachine(machine: MachineForDto): Observable<MachineForDto> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.jwtService.getToken()
+      })
+    };
+
+    console.log("Before http.patch<any>")
+    return this.http.patch<any>(this.machineConstants.MACHINE_BY_ID(machine.id.toString()), machine, httpOptions);
   }
 }

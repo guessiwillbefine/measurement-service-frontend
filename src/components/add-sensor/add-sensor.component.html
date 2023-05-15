@@ -1,0 +1,27 @@
+<header-component></header-component>
+<form (ngSubmit)="addSensor()">
+  <mat-form-field appearance="outline">
+    <mat-label>name:</mat-label>
+    <input matInput placeholder="..." [(ngModel)]="newSensor.name" name="name">
+  </mat-form-field>
+  <br/>
+  <mat-form-field appearance="outline">
+    <mat-label>Measure system:</mat-label>
+    <mat-select [(ngModel)]="newSensor.measureSystem" name="factory">
+      <mat-option *ngFor="let measureSystem of allMeasureSystems" [value]="measureSystem">{{ measureSystem }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="this.errorList != null">
+    <div *ngFor="let error of errorList.response" style="color: #ca5980">
+      <div>{{error.field}} :
+        <div *ngFor="let err of error.errors" style="color: #4c4c4c">
+          {{err.text}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div>
+    <button mat-flat-button color="primary" type="submit">save</button>
+  </div>
+</form>

@@ -9,6 +9,8 @@ import {UserFactoryComponent} from "./user-factory/user-factory.component";
 import {MachineDetailsComponent} from "./machine-details/MachineDetailsComponent";
 import {AdminAccountComponent} from "./account/admin-account/AdminAccountComponent";
 import {AddMachineComponent} from "./add-machine/AddMachineComponent";
+import {FactoryComponent} from "./factory/factory.component";
+import {AddSensorComponent} from "./add-sensor/add-sensor.component";
 
 const routes: Routes = [
   {path: 'about', component: AboutComponent},
@@ -22,12 +24,15 @@ const routes: Routes = [
     canActivate: [() => inject(AuthGuard).canActivate() && inject(RoleGuard).canActivate()]
   },
   {path: 'factory', component: UserFactoryComponent, canActivate: [() => inject(AuthGuard).canActivate()]},
+  {path: 'factories', component: FactoryComponent, canActivate: [() => inject(AuthGuard).canActivate()]},
   {path: 'machines/:id', component: MachineDetailsComponent, canActivate: [() => inject(AuthGuard).canActivate()]},
   {
     path: 'factories/add_machine',
     component: AddMachineComponent,
     canActivate: [() => inject(AuthGuard).canActivate() && inject(RoleGuard).canActivate()]
   },
+  {path: 'sensors/add_sensor', component: AddSensorComponent, canActivate: [() => inject(AuthGuard).canActivate()]},
+
 
   // {path: '', component: AuthComponent, canActivate: [AuthGuard], canActivateChild: [RoleGuard],
   //   children: [
