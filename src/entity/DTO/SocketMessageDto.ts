@@ -1,17 +1,18 @@
-interface MeasureMessage {
+export interface measureMessage {
   value: number;
-  isCritical: boolean
+  isCritical?: boolean
 }
 
-interface SensorMessage {
+export interface sensorMessage {
   id: number;
-  measure: MeasureMessage;
+  measure: measureMessage;
+  //criticalValue: number
 }
 
-interface MachineMessage {
-  sensors: SensorMessage[];
+export interface machineMessage {
+  sensors: sensorMessage[];
 }
 
 export interface MeasuresSocketDto {
-  machineMessage: MachineMessage;
+  machineMessage: machineMessage;
 }

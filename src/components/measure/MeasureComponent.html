@@ -1,1 +1,9 @@
-
+<div *ngIf="measure" [ngClass]='{
+                        "critical": measure.isCritical,
+                        "ok": !measure.isCritical
+                      }'>
+  <div>{{measure.value}}</div>
+</div>
+<div *ngIf="!measure" [ngClass]="'waiting'">
+  <div>connecting...</div>
+</div>

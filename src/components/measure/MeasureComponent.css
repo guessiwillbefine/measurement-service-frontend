@@ -1,0 +1,18 @@
+div {
+  font-size: 18px;
+}
+
+.critical {
+
+  color: orangered;
+  font-style: oblique;
+}
+
+.ok {
+  color: #569071;
+}
+
+.waiting {
+  color: #414141;
+  font-style: italic;
+}

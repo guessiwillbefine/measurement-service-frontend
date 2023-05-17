@@ -12,6 +12,8 @@ import {FactoryService} from "../../service/factory/FactoryService";
 import {ValidationError, ValidationErrorsResponse} from "../../util/response/ValidationError";
 import {MachineForDto} from "../../entity/MachineForDto";
 import {HttpErrorResponse} from "@angular/common/http";
+import {WebSocketService} from "../../service/socket/WebSocketService";
+import {MeasuresSocketDto} from "../../entity/DTO/SocketMessageDto";
 
 @Component({
   selector: "app-machine-datails",
@@ -28,13 +30,14 @@ export class MachineDetailsComponent implements OnInit {
   public machineToUpdate: MachineForDto = {} as MachineForDto;
   public machineType = MachineType;
   public errorList: ValidationErrorsResponse<ValidationError[]>;
-
+  public sensors$: MeasuresSocketDto | undefined;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private machineService: MachineService,
               private userService: UserService,
-              private factoryService: FactoryService) {
+              private factoryService: FactoryService,
+              private socketService: WebSocketService) {
   }
 
   ngOnInit(): void {
@@ -45,8 +48,14 @@ export class MachineDetailsComponent implements OnInit {
   }
 
   userInit() {
-    this.userService.getCurrentUser().pipe(user => this.user$ = user)
-      .subscribe();
+    this.userService.getCurrentUser()
+      .subscribe(user => {
+        const id = user.id.toString();
+        this.machine$.subscribe(x=> {
+          this.register(id, [x.id.toString()]);
+          this.subscribeToQueue(id);
+        });
+      });
   }
 
   machineInit() {
@@ -54,7 +63,6 @@ export class MachineDetailsComponent implements OnInit {
       .pipe(machine => this.machine$ = machine)
       .subscribe(machine => {
         this.mapToMachineForDto(machine);
-        console.log(machine);
       });
   }
 
@@ -76,7 +84,6 @@ export class MachineDetailsComponent implements OnInit {
   public deleteMachine() {
     this.machineService.delete(this.id).subscribe(
       machine => {
-        console.log(machine); // успех - выводим добавленную машину
         this.router.navigate(['/factories']);
       },
       error => console.log(error) // ошибка - сохраняем информацию об ошибке
@@ -100,5 +107,24 @@ export class MachineDetailsComponent implements OnInit {
           this.errorList = error.error;
         }
       );
+  }
+
+  findMeasureBySensorId(id: number) {
+    return this.sensors$?.machineMessage.sensors?.find(s => s.id === id)?.measure;
+  }
+  public subscribeToQueue(id: string) {
+    const queueName = '/user/' + id + '/queue/messages';
+    return this.socketService.watch(queueName).subscribe(x => {
+      try {
+        this.sensors$ = JSON.parse(x.body);
+      } catch (error) {
+        // без комментариев
+      }
+    });
+  }
+
+  public register(id: string, message: string[] = []): void {
+    const destination = '/app/message/' + id;
+    this.socketService.publish({destination: destination, body: JSON.stringify(message)});
   }
 }

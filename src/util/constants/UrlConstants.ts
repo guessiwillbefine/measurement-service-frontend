@@ -34,4 +34,7 @@ export class UrlConstants {
     }
     public static readonly ADD_SENSOR = `${UrlConstants.ADDRESS}/sensors/create`
   }
+  public static readonly SOCKET = class {
+    public static readonly URL = `wss://${UrlConstants.HOST}:${UrlConstants.PORT}/ws`
+  }
 }

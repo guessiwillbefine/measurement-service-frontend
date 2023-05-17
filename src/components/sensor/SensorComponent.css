@@ -9,3 +9,18 @@
 .sensor-name {
   font-weight: bold;
 }
+
+a {
+  color: inherit;
+  font-size: 25px;
+  text-decoration: none;
+}
+
+a:hover {
+  font-style: italic;
+}
+
+.measure {
+  font-size: 20px;
+  color: darkslateblue;
+}
