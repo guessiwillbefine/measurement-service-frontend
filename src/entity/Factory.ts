@@ -1,9 +1,9 @@
 import {User} from "./User";
-import {Machine} from "./Machine";
+import {MachineForView} from "./MachineForView";
 
 export interface Factory {
   id: number,
   name: string,
   users: User[],
-  machines: Machine[]
+  machines: MachineForView[]
 }

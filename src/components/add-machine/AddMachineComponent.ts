@@ -2,12 +2,13 @@ import {Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
 import {Factory} from "../../entity/Factory";
 import {FactoryService} from "../../service/factory/FactoryService";
-import {Machine} from "../../entity/Machine";
 import {MachineType} from "../../entity/MachineType";
 import {MachineService} from "../../service/machine/MachineService";
 import {MachineActivity} from "../../entity/MachineActivity";
-import {UserService} from "../../service/user/UserService";
 import {ValidationError, ValidationErrorsResponse} from "../../util/response/ValidationError";
+import {MachineForDto} from "../../entity/MachineForDto";
+import {Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'add-machine',
@@ -16,7 +17,7 @@ import {ValidationError, ValidationErrorsResponse} from "../../util/response/Val
 })
 export class AddMachineComponent implements OnInit {
   factories$: Observable<Factory[]>;
-  newMachine: Machine = {
+  newMachine: MachineForDto = {
     id: 0,
     name: '',
     model: '',
@@ -29,7 +30,7 @@ export class AddMachineComponent implements OnInit {
   errorList: ValidationErrorsResponse<ValidationError[]>;
 
 
-  constructor(public factoryService: FactoryService, public machineService: MachineService, public userService: UserService) {
+  constructor(private route: Router, public factoryService: FactoryService, public machineService: MachineService) {
   }
 
   ngOnInit(): void {
@@ -45,11 +46,15 @@ export class AddMachineComponent implements OnInit {
       .subscribe();
   }
 
-  //todo Обработка ошибки создания машины
   public addMachine() {
-    this.machineService.addMachine(this.newMachine).subscribe(
-        machine => console.log(machine), // успех - выводим добавленную машину
-        error => this.errorList = error.error // ошибка - сохраняем информацию об ошибке
+    this.machineService.addMachine(this.newMachine)
+      .subscribe(
+        () => {
+          this.route.navigate(['/factories']);
+        },
+        (error: HttpErrorResponse) => {
+          this.errorList = error.error;
+        }
       );
   }
 }

@@ -35,6 +35,10 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {FactoryComponent} from "./factory/factory.component";
 import {RouterComponent} from "./router/router.component";
+import {AddSensorComponent} from "./add-sensor/add-sensor.component";
+import {SensorService} from "../service/sensor/SensorService";
+import {SensorRepositoryImpl} from "../service/repository/sensor/SensorRepositoryImpl";
+import {SensorDetailsComponent} from "./sensor-details/sensor.details.component";
 import {rxStompServiceFactory, WebSocketService} from "../service/socket/WebSocketService";
 
 @NgModule({
@@ -52,7 +56,9 @@ import {rxStompServiceFactory, WebSocketService} from "../service/socket/WebSock
     SensorComponent,
     MeasureComponent,
     AddMachineComponent,
-    FactoryComponent
+    FactoryComponent,
+    AddSensorComponent,
+    SensorDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +82,8 @@ import {rxStompServiceFactory, WebSocketService} from "../service/socket/WebSock
     FactoryRepositoryImpl,
     MachineService,
     MachineRepositoryImpl,
+    SensorService,
+    SensorRepositoryImpl,
     FormBuilder,
     RoleGuard,
     {

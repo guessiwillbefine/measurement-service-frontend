@@ -1,11 +1,17 @@
 import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Machine} from "../../entity/Machine";
+import {ActivatedRoute, Router} from "@angular/router";
+import {MachineForView} from "../../entity/MachineForView";
 import {MachineService} from "../../service/machine/MachineService";
 import {Observable} from "rxjs";
-import {WebSocketService} from "../../service/socket/WebSocketService";
 import {UserService} from "../../service/user/UserService";
-import {MeasuresSocketDto} from "../../entity/DTO/SocketMessageDto";
+import {User} from "../../entity/User";
+import {Role} from "../../entity/Role";
+import {MachineType} from "../../entity/MachineType";
+import {Factory} from "../../entity/Factory";
+import {FactoryService} from "../../service/factory/FactoryService";
+import {ValidationError, ValidationErrorsResponse} from "../../util/response/ValidationError";
+import {MachineForDto} from "../../entity/MachineForDto";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: "app-machine-datails",
@@ -13,51 +19,86 @@ import {MeasuresSocketDto} from "../../entity/DTO/SocketMessageDto";
   styleUrls: ['./MachineDetailsComponent.css']
 })
 export class MachineDetailsComponent implements OnInit {
+  public id: string;
+  public machine$: Observable<MachineForView>;
+  public user$: Observable<User>;
+  public factories$: Observable<Factory[]>;
+  public role = Role;
+  public editMode: boolean = false;
+  public machineToUpdate: MachineForDto = {} as MachineForDto;
+  public machineType = MachineType;
+  public errorList: ValidationErrorsResponse<ValidationError[]>;
 
-  private id: string;
-  public machine$: Observable<Machine>;
-  public measures: MeasuresSocketDto
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private machineService: MachineService,
               private userService: UserService,
-              private socketService: WebSocketService) {
+              private factoryService: FactoryService) {
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
+    this.userInit();
+    this.machineInit();
+    this.factoriesInit();
+  }
+
+  userInit() {
+    this.userService.getCurrentUser().pipe(user => this.user$ = user)
+      .subscribe();
+  }
+
+  machineInit() {
     this.machineService.getMachineById(this.id)
       .pipe(machine => this.machine$ = machine)
-      .subscribe();
-
-    this.userService.getCurrentUser()
-      .subscribe(user => {
-        console.log("user was get");
-        const id = user.id.toString();
-        this.machine$.subscribe(x=> {
-          console.log(x.id)
-          this.register(id, [x.id.toString()]);
-          this.subscribeToQueue(id);
-        });
+      .subscribe(machine => {
+        this.mapToMachineForDto(machine);
+        console.log(machine);
       });
   }
 
-  findMeasureBySensorId(id: number) {
-    return this.measures.machineMessage.sensors?.find(x=> x.id === id)?.measure.value;
-  }
-  public subscribeToQueue(id: string) {
-    console.log("subscribing");
-    const queueName = '/user/' + id + '/queue/messages';
-    return this.socketService.watch(queueName).subscribe(x => {
-      this.measures = JSON.parse(x.body) as MeasuresSocketDto;
-      console.log(x);
-    });
+  mapToMachineForDto(machineForView: MachineForView) {
+    this.machineToUpdate.model = machineForView.model;
+    this.machineToUpdate.type = machineForView.type;
+    this.machineToUpdate.activity = machineForView.activity;
+    this.machineToUpdate.name = machineForView.name;
+    this.machineToUpdate.sensors = machineForView.sensors;
+    this.machineToUpdate.factoryId = machineForView.factory.id;
   }
 
-  public register(id: string, message: string[] = []): void {
-    console.log("registering");
-    console.log(JSON.stringify(message));
-    const destination = '/app/message/' + id;
-    this.socketService.publish({destination: destination, body: JSON.stringify(message)});
+  private factoriesInit() {
+    this.factoryService.getAllFactories()
+      .pipe(factories => this.factories$ = factories)
+      .subscribe();
+  }
+
+  public deleteMachine() {
+    this.machineService.delete(this.id).subscribe(
+      machine => {
+        console.log(machine); // успех - выводим добавленную машину
+        this.router.navigate(['/factories']);
+      },
+      error => console.log(error) // ошибка - сохраняем информацию об ошибке
+    );
+  }
+
+  cancelUpdate() {
+    this.editMode = false
+    this.machineInit();
+    if (this.errorList) {
+      this.errorList.response.splice(0, this.errorList.response.length);
+    }
+  }
+
+  updateMachine() {
+    this.machineService.update(this.id, this.machineToUpdate)
+      .subscribe(() => {
+          this.editMode = false;
+        },
+        (error: HttpErrorResponse) => {
+          this.errorList = error.error;
+        }
+      );
   }
 }
