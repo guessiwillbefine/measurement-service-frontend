@@ -11,6 +11,7 @@ import {AdminAccountComponent} from "./account/admin-account/AdminAccountCompone
 import {AddMachineComponent} from "./add-machine/AddMachineComponent";
 import {FactoryComponent} from "./factory/factory.component";
 import {AddSensorComponent} from "./add-sensor/add-sensor.component";
+import {SensorDetailsComponent} from "./sensor-details/sensor.details.component";
 
 const routes: Routes = [
   {path: 'about', component: AboutComponent},
@@ -32,6 +33,7 @@ const routes: Routes = [
     canActivate: [() => inject(AuthGuard).canActivate() && inject(RoleGuard).canActivate()]
   },
   {path: 'sensors/add_sensor', component: AddSensorComponent, canActivate: [() => inject(AuthGuard).canActivate()]},
+  {path: 'sensors/:id', component: SensorDetailsComponent, canActivate: [() => inject(AuthGuard).canActivate()]},
 
 
   // {path: '', component: AuthComponent, canActivate: [AuthGuard], canActivateChild: [RoleGuard],

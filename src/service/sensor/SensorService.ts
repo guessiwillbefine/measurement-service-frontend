@@ -10,4 +10,16 @@ export class SensorService {
   addSensor(sensor: Sensor) {
     return this.sensorRepository.addSensor(sensor);
   }
+
+  getSensor(id: string) {
+    return this.sensorRepository.getSensorById(id);
+  }
+
+  deleteSensor(id: string) {
+    return this.sensorRepository.deleteSensor(id);
+  }
+
+  updateSensor(id:string, sensor: Sensor){
+    return this.sensorRepository.updateSensor(id, sensor);
+  }
 }

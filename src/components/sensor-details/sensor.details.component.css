@@ -1,0 +1,16 @@
+.sensor-container {
+  padding: 10px;
+  width: 75%;
+  margin: 0 auto 10px;
+}
+
+.sensor-name {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 150%;
+}
+
+.button {
+  margin-bottom: 20px;
+  margin-right: 5px;
+}

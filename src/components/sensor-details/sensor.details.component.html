@@ -1,0 +1,42 @@
+<header-component></header-component>
+<ng-container *ngIf="!editMode">
+      <button mat-flat-button color="primary" (click)="deleteSensor()" class="button">delete</button>
+      <button mat-flat-button color="primary" (click)="this.editMode = true" class="button">edit</button>
+
+  <ng-container *ngIf="sensor$ | async as sensor" class="sensor-container">
+    <div class="sensor-name">{{ sensor.name }}</div>
+    <div>{{ sensor.measureSystem }}</div>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="editMode">
+  <form (ngSubmit)="updateSensor()">
+
+    <mat-form-field appearance="outline">
+      <mat-label>name:</mat-label>
+      <input matInput placeholder="..." [(ngModel)]="sensorToUpdate.name" name="name">
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline">
+      <mat-label>measure system:</mat-label>
+      <mat-select [(value)]="sensorToUpdate.measureSystem">
+        <mat-option *ngFor="let system of measureSystem | keyvalue" [value]="system.value">{{ system.value }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br/>
+    <div *ngIf="this.errorList != null">
+      <div *ngFor="let error of errorList.response" style="color: #ca5980">
+        <div>{{error.field}} :
+          <div *ngFor="let err of error.errors" style="color: #4c4c4c">
+            {{err.text}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div>
+      <button mat-flat-button color="primary" (click)="cancelUpdate()" style="margin-right: 10px" class="button">back</button>
+      <button mat-flat-button color="primary" (click)="updateSensor()" class="button">update</button>
+    </div>
+  </form>
+</ng-container>

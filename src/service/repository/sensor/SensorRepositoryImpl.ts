@@ -23,4 +23,31 @@ export class SensorRepositoryImpl implements SensorRepository{
     return this.http.post<Sensor>(this.sensorConstants.ADD_SENSOR, sensor, httpOptions);
   }
 
+  getSensorById(id: string): Observable<Sensor> {
+    const options = {
+      headers: {Authorization: `Bearer ${this.jwtService.getToken()}`},
+    };
+
+    return this.http.get<Sensor>(this.sensorConstants.SENSOR_BY_ID(id), options);
+  }
+
+  deleteSensor(id: string): Observable<Sensor> {
+    const options = {
+      headers: {Authorization: `Bearer ${this.jwtService.getToken()}`},
+    };
+
+    return this.http.delete<Sensor>(this.sensorConstants.SENSOR_BY_ID(id), options);
+  }
+
+  updateSensor(id: string, sensor: Sensor): Observable<Sensor> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.jwtService.getToken()
+      })
+    };
+
+    return this.http.patch<Sensor>(this.sensorConstants.SENSOR_BY_ID(id), sensor, httpOptions);
+  }
+
 }

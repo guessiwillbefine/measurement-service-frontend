@@ -3,7 +3,7 @@ import config from '../../appConfig.json';
 export class UrlConstants {
   public static readonly HOST = config.server.host;
   public static readonly PORT = config.server.port;
-  public static readonly ADDRESS = `http://${this.HOST}:${this.PORT}`;
+  public static readonly ADDRESS = `https://${this.HOST}:${this.PORT}`;
   public static readonly AUTHENTICATION = class AuthenticationConstants {
     public static readonly AUTHENTICATION = `${UrlConstants.ADDRESS}/auth/_login`;
     public static readonly REGISTRATION = `${UrlConstants.ADDRESS}/auth/register`;
@@ -29,6 +29,9 @@ export class UrlConstants {
   }
 
   public static readonly SENSOR = class {
+    public static readonly SENSOR_BY_ID = function (id: string) {
+      return `${UrlConstants.ADDRESS}/sensors/${id}`
+    }
     public static readonly ADD_SENSOR = `${UrlConstants.ADDRESS}/sensors/create`
   }
 }

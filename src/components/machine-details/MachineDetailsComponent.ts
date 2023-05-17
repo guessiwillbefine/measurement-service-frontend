@@ -59,7 +59,6 @@ export class MachineDetailsComponent implements OnInit {
   }
 
   mapToMachineForDto(machineForView: MachineForView) {
-    this.machineToUpdate.id = parseInt(this.id);
     this.machineToUpdate.model = machineForView.model;
     this.machineToUpdate.type = machineForView.type;
     this.machineToUpdate.activity = machineForView.activity;
@@ -93,7 +92,7 @@ export class MachineDetailsComponent implements OnInit {
   }
 
   updateMachine() {
-    this.machineService.update(this.machineToUpdate)
+    this.machineService.update(this.id, this.machineToUpdate)
       .subscribe(() => {
           this.editMode = false;
         },
