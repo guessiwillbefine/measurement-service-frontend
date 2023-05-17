@@ -38,6 +38,7 @@ import {RouterComponent} from "./router/router.component";
 import {AddSensorComponent} from "./add-sensor/add-sensor.component";
 import {SensorService} from "../service/sensor/SensorService";
 import {SensorRepositoryImpl} from "../service/repository/sensor/SensorRepositoryImpl";
+import {SensorDetailsComponent} from "./sensor-details/sensor.details.component";
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import {SensorRepositoryImpl} from "../service/repository/sensor/SensorRepositor
     MeasureComponent,
     AddMachineComponent,
     FactoryComponent,
-    AddSensorComponent
+    AddSensorComponent,
+    SensorDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -22,7 +22,7 @@ export class MachineRepositoryImpl implements MachineRepository {
     return this.http.get<MachineForView>(this.machineConstants.MACHINE_BY_ID(id), options);
   }
 
-  addMachine(machine: MachineForDto) {
+  addMachine(machine: MachineForDto): Observable<MachineForView> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -30,7 +30,6 @@ export class MachineRepositoryImpl implements MachineRepository {
       })
     };
 
-    console.log("Before http.post<any>")
     return this.http.post<any>(this.machineConstants.ADD_MACHINE, machine, httpOptions);
   }
 
@@ -41,7 +40,7 @@ export class MachineRepositoryImpl implements MachineRepository {
     return this.http.delete<MachineForView>(this.machineConstants.MACHINE_BY_ID(id), options);
   }
 
-  updateMachine(machine: MachineForDto): Observable<MachineForDto> {
+  updateMachine(id: string, machine: MachineForDto): Observable<MachineForDto> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -49,7 +48,6 @@ export class MachineRepositoryImpl implements MachineRepository {
       })
     };
 
-    console.log("Before http.patch<any>")
-    return this.http.patch<any>(this.machineConstants.MACHINE_BY_ID(machine.id.toString()), machine, httpOptions);
+    return this.http.patch<any>(this.machineConstants.MACHINE_BY_ID(id), machine, httpOptions);
   }
 }

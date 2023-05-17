@@ -1,5 +1,6 @@
 <div class="sensor-container" [ngClass]="sensor">
-  <div>{{ sensor.name }}</div>
+  <div><a [routerLink]="['/sensors', sensor.id]">
+    {{ sensor.name }}</a></div>
   <div>{{ sensor.measureSystem }}</div>
   <app-measure></app-measure>
 </div>

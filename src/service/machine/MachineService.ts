@@ -1,7 +1,5 @@
 import {Injectable} from "@angular/core";
-import {tap} from "rxjs";
 import {MachineRepositoryImpl} from "../repository/machine/MachineRepositoryImpl";
-import {MachineForView} from "../../entity/MachineForView";
 import {MachineForDto} from "../../entity/MachineForDto";
 
 @Injectable()
@@ -10,8 +8,7 @@ export class MachineService {
   }
 
   getMachineById(id: string) {
-    return this.machineRepository.getMachineById(id).pipe(
-      tap(response => <MachineForView>response));
+    return this.machineRepository.getMachineById(id);
   }
 
   addMachine(machine: MachineForDto) {
@@ -22,7 +19,7 @@ export class MachineService {
     return this.machineRepository.deleteMachine(id);
   }
 
-  update(machine: MachineForDto) {
-    return this.machineRepository.updateMachine(machine);
+  update(id: string, machine: MachineForDto) {
+    return this.machineRepository.updateMachine(id, machine);
   }
 }
