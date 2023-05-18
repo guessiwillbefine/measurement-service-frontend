@@ -14,9 +14,14 @@ import {MachineForDto} from "../../entity/MachineForDto";
 import {HttpErrorResponse} from "@angular/common/http";
 import {WebSocketService} from "../../service/socket/WebSocketService";
 import {MeasuresSocketDto} from "../../entity/DTO/SocketMessageDto";
+import {UrlConstants} from "../../util/constants/UrlConstants";
 
+/*TODO
+    добавить onDestroy метод который будет отправлять запрос на удаление из "кеша" соединения,
+    но сперва реализовать ендпоинт на бекенде
+*/
 @Component({
-  selector: "app-machine-datails",
+  selector: "app-machine-details",
   templateUrl: "./MachineDetailsComponent.html",
   styleUrls: ['./MachineDetailsComponent.css']
 })
@@ -30,7 +35,7 @@ export class MachineDetailsComponent implements OnInit {
   public machineToUpdate: MachineForDto = {} as MachineForDto;
   public machineType = MachineType;
   public errorList: ValidationErrorsResponse<ValidationError[]>;
-  public sensors$: MeasuresSocketDto | undefined;
+  public sensorsMeasureResponse: MeasuresSocketDto | undefined;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -109,22 +114,36 @@ export class MachineDetailsComponent implements OnInit {
       );
   }
 
-  findMeasureBySensorId(id: number) {
-    return this.sensors$?.machineMessage.sensors?.find(s => s.id === id)?.measure;
-  }
-  public subscribeToQueue(id: string) {
-    const queueName = '/user/' + id + '/queue/messages';
-    return this.socketService.watch(queueName).subscribe(x => {
-      try {
-        this.sensors$ = JSON.parse(x.body);
-      } catch (error) {
-        // без комментариев
-      }
-    });
+  /** находит в ответе от вебсокет-соединения нужное измерения датчика
+   * @param targetSensorId идентификатор сенсора, измерения которого нужно найти
+   */
+  findMeasureBySensorId(targetSensorId: number) {
+    return this.sensorsMeasureResponse?.machineMessage.sensors?.find(s => s.id === targetSensorId)?.measure;
   }
 
-  public register(id: string, message: string[] = []): void {
-    const destination = '/app/message/' + id;
-    this.socketService.publish({destination: destination, body: JSON.stringify(message)});
+  /** Подписка на сообщения от бекенда с последними измерениями просматриваемых сенсоров
+   * @param userId идентификатор пользователя, который подписался, необходимо для создания уникального соединения
+   */
+  public subscribeToQueue(userId: string) {
+    return this.socketService.watch(UrlConstants.SOCKET.MEASURE_QUEUE(userId))
+      .subscribe(response => {
+        console.log(response)
+        try {
+          this.sensorsMeasureResponse = JSON.parse(response.body);
+        } catch (error) {
+          // без комментариев
+        }
+      });
+  }
+
+  /** Отправляет сообщение на бекенд со списком машин, которые просматриваются пользователем
+   * @param userId идентификатор пользователя
+   * @param message массив идентификаторов машин, данные которых будем мониторить
+   */
+  public register(userId: string, message: string[] = []): void {
+    this.socketService.publish({
+      destination: UrlConstants.SOCKET.DESTINATION(userId),
+      body: JSON.stringify(message)
+    });
   }
 }

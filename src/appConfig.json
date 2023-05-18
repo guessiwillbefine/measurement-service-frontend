@@ -1,6 +1,14 @@
 {
   "server": {
-    "port": 8080,
-    "host": "localhost"
+    "rest": {
+      "protocol": "https",
+      "port": 8080,
+      "host": "localhost"
+    },
+    "websocket": {
+      "protocol": "wss",
+      "port": 8080,
+      "host": "localhost"
+    }
   }
 }
