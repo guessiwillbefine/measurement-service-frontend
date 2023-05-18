@@ -16,6 +16,7 @@ export class AddSensorComponent {
   public newSensor: Sensor = {
     id: 0,
     name: '',
+    measure: { id: 0, isCritical: false, value:0 },
     measureSystem: MeasureSystem.AMPERE,
     machineId: 0
   };

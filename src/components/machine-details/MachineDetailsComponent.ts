@@ -12,9 +12,16 @@ import {FactoryService} from "../../service/factory/FactoryService";
 import {ValidationError, ValidationErrorsResponse} from "../../util/response/ValidationError";
 import {MachineForDto} from "../../entity/MachineForDto";
 import {HttpErrorResponse} from "@angular/common/http";
+import {WebSocketService} from "../../service/socket/WebSocketService";
+import {MeasuresSocketDto} from "../../entity/DTO/SocketMessageDto";
+import {UrlConstants} from "../../util/constants/UrlConstants";
 
+/*TODO
+    добавить onDestroy метод который будет отправлять запрос на удаление из "кеша" соединения,
+    но сперва реализовать ендпоинт на бекенде
+*/
 @Component({
-  selector: "app-machine-datails",
+  selector: "app-machine-details",
   templateUrl: "./MachineDetailsComponent.html",
   styleUrls: ['./MachineDetailsComponent.css']
 })
@@ -28,13 +35,14 @@ export class MachineDetailsComponent implements OnInit {
   public machineToUpdate: MachineForDto = {} as MachineForDto;
   public machineType = MachineType;
   public errorList: ValidationErrorsResponse<ValidationError[]>;
-
+  public sensorsMeasureResponse: MeasuresSocketDto | undefined;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private machineService: MachineService,
               private userService: UserService,
-              private factoryService: FactoryService) {
+              private factoryService: FactoryService,
+              private socketService: WebSocketService) {
   }
 
   ngOnInit(): void {
@@ -45,8 +53,14 @@ export class MachineDetailsComponent implements OnInit {
   }
 
   userInit() {
-    this.userService.getCurrentUser().pipe(user => this.user$ = user)
-      .subscribe();
+    this.userService.getCurrentUser()
+      .subscribe(user => {
+        const id = user.id.toString();
+        this.machine$.subscribe(x=> {
+          this.register(id, [x.id.toString()]);
+          this.subscribeToQueue(id);
+        });
+      });
   }
 
   machineInit() {
@@ -54,7 +68,6 @@ export class MachineDetailsComponent implements OnInit {
       .pipe(machine => this.machine$ = machine)
       .subscribe(machine => {
         this.mapToMachineForDto(machine);
-        console.log(machine);
       });
   }
 
@@ -76,7 +89,6 @@ export class MachineDetailsComponent implements OnInit {
   public deleteMachine() {
     this.machineService.delete(this.id).subscribe(
       machine => {
-        console.log(machine); // успех - выводим добавленную машину
         this.router.navigate(['/factories']);
       },
       error => console.log(error) // ошибка - сохраняем информацию об ошибке
@@ -100,5 +112,38 @@ export class MachineDetailsComponent implements OnInit {
           this.errorList = error.error;
         }
       );
+  }
+
+  /** находит в ответе от вебсокет-соединения нужное измерения датчика
+   * @param targetSensorId идентификатор сенсора, измерения которого нужно найти
+   */
+  findMeasureBySensorId(targetSensorId: number) {
+    return this.sensorsMeasureResponse?.machineMessage.sensors?.find(s => s.id === targetSensorId)?.measure;
+  }
+
+  /** Подписка на сообщения от бекенда с последними измерениями просматриваемых сенсоров
+   * @param userId идентификатор пользователя, который подписался, необходимо для создания уникального соединения
+   */
+  public subscribeToQueue(userId: string) {
+    return this.socketService.watch(UrlConstants.SOCKET.MEASURE_QUEUE(userId))
+      .subscribe(response => {
+        console.log(response)
+        try {
+          this.sensorsMeasureResponse = JSON.parse(response.body);
+        } catch (error) {
+          // без комментариев
+        }
+      });
+  }
+
+  /** Отправляет сообщение на бекенд со списком машин, которые просматриваются пользователем
+   * @param userId идентификатор пользователя
+   * @param message массив идентификаторов машин, данные которых будем мониторить
+   */
+  public register(userId: string, message: string[] = []): void {
+    this.socketService.publish({
+      destination: UrlConstants.SOCKET.DESTINATION(userId),
+      body: JSON.stringify(message)
+    });
   }
 }

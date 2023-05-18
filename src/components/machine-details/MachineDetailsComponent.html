@@ -14,7 +14,7 @@
       {{ machine.name }}
     </div>
     <div *ngFor="let sensor of machine.sensors">
-      <app-sensor [sensor]="sensor"></app-sensor>
+      <app-sensor [sensor]="sensor" [measure]="findMeasureBySensorId(sensor.id)"></app-sensor>
     </div>
   </div>
 </div>

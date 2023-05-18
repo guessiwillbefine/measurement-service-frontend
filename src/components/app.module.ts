@@ -39,6 +39,7 @@ import {AddSensorComponent} from "./add-sensor/add-sensor.component";
 import {SensorService} from "../service/sensor/SensorService";
 import {SensorRepositoryImpl} from "../service/repository/sensor/SensorRepositoryImpl";
 import {SensorDetailsComponent} from "./sensor-details/sensor.details.component";
+import {rxStompServiceFactory, WebSocketService} from "../service/socket/WebSocketService";
 
 @NgModule({
   declarations: [
@@ -84,7 +85,11 @@ import {SensorDetailsComponent} from "./sensor-details/sensor.details.component"
     SensorService,
     SensorRepositoryImpl,
     FormBuilder,
-    RoleGuard],
+    RoleGuard,
+    {
+      provide: WebSocketService,
+      useFactory: rxStompServiceFactory,
+    }],
   bootstrap: [RouterComponent]
 })
 export class AppModule {
