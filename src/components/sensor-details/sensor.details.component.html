@@ -6,6 +6,8 @@
   <ng-container *ngIf="sensor$ | async as sensor" class="sensor-container">
     <div class="sensor-name">{{ sensor.name }}</div>
     <div>{{ sensor.measureSystem }}</div>
+    <div>{{sensorToUpdate.criticalValue !== null ?
+      "Critical value : " + sensorToUpdate.criticalValue : "This sensor doesn't have any critical values yet"}}</div>
   </ng-container>
 </ng-container>
 
@@ -15,6 +17,15 @@
     <mat-form-field appearance="outline">
       <mat-label>name:</mat-label>
       <input matInput placeholder="..." [(ngModel)]="sensorToUpdate.name" name="name">
+    </mat-form-field>
+    <br/>
+    <mat-checkbox class="example-margin" [checked]="this.criticalIsPresent" (change)="changeCriticalValueState($event.checked)">
+      critical value parameter
+    </mat-checkbox>
+    <br/>
+    <mat-form-field appearance="outline" *ngIf="criticalIsPresent">
+      <mat-label>value:</mat-label>
+      <input matInput placeholder="..." [(ngModel)]="sensorToUpdate.criticalValue" name="name">
     </mat-form-field>
     <br/>
     <mat-form-field appearance="outline">
