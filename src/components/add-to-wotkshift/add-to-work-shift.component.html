@@ -1,0 +1,10 @@
+<div>
+  <ng-container *ngIf="machine.activity === machineActivity.INACTIVE; else freeMachine">
+    <button mat-flat-button color="primary" type="submit" (click)="createWorkShift()">take</button>
+  </ng-container>
+    <ng-template #freeMachine>
+      <button mat-flat-button color="primary" type="submit" (click)="endWorkShift()">free</button>
+    </ng-template>
+</div>
+
+

@@ -42,6 +42,13 @@ export class UrlConstants {
     }
     public static readonly ADD_SENSOR = `${UrlConstants.ADDRESS}/sensors/create`
   }
+
+  public static readonly WORK_SHIFT = class {
+    public static readonly ADD_WORK_SHIFT = `${UrlConstants.ADDRESS}/work_shifts/create`;
+    public static readonly UPDATE_WORK_SHIFT = `${UrlConstants.ADDRESS}/work_shifts`;
+
+  }
+
   public static readonly SOCKET = class {
     public static readonly CONNECTION_URL = `${UrlConstants.SOCKET_ADDRESS}/ws`;
     public static readonly DESTINATION = (id: string) => { return `/app/message/${id}` };
