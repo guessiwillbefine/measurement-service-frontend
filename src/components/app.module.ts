@@ -40,6 +40,7 @@ import {SensorService} from "../service/sensor/SensorService";
 import {SensorRepositoryImpl} from "../service/repository/sensor/SensorRepositoryImpl";
 import {SensorDetailsComponent} from "./sensor-details/sensor.details.component";
 import {rxStompServiceFactory, WebSocketService} from "../service/socket/WebSocketService";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import {rxStompServiceFactory, WebSocketService} from "../service/socket/WebSock
     HttpClientModule,
     MatOptionModule,
     MatSelectModule,
+    MatCheckboxModule,
   ],
   providers: [AuthenticationServiceImpl,
     JwtService,

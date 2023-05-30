@@ -7,4 +7,5 @@ export interface Sensor {
   measureSystem: MeasureSystem,
   measure: Measure
   machineId: number
+  criticalValue?: number | null
 }

@@ -16,6 +16,7 @@ export class SensorDetailsComponent implements OnInit {
   public id: string;
   public sensor$: Observable<Sensor>;
   public editMode: boolean = false;
+  public criticalIsPresent: boolean;
   public sensorToUpdate: Sensor = {} as Sensor;
   public errorList: ValidationErrorsResponse<ValidationError[]>;
   public measureSystem = MeasureSystem;
@@ -34,6 +35,7 @@ export class SensorDetailsComponent implements OnInit {
       .pipe(sensor => this.sensor$ = sensor)
       .subscribe(sensor => {
         this.sensorToUpdate = sensor
+        this.criticalIsPresent = sensor.criticalValue !== null;
         console.log(sensor);
       });
   }
@@ -64,6 +66,14 @@ export class SensorDetailsComponent implements OnInit {
     this.sensorInit();
     if (this.errorList) {
       this.errorList.response.splice(0, this.errorList.response.length);
+    }
+  }
+
+  /** если чекбокс потушили - очистим поле с критическим показателем */
+  changeCriticalValueState(checked: boolean) {
+    this.criticalIsPresent = checked;
+    if (!checked) {
+      this.sensorToUpdate.criticalValue = null;
     }
   }
 }
