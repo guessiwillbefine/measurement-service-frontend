@@ -41,6 +41,9 @@ import {SensorRepositoryImpl} from "../service/repository/sensor/SensorRepositor
 import {SensorDetailsComponent} from "./sensor-details/sensor.details.component";
 import {rxStompServiceFactory, WebSocketService} from "../service/socket/WebSocketService";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {AddToWorkShiftComponent} from "./add-to-wotkshift/add-to-work-shift.component";
+import {WorkShiftRepositoryImpl} from "../service/repository/workshift/WorkShiftRepositoryImpl";
+import {WorkShiftService} from "../service/workshift/WorkShiftService";
 
 @NgModule({
   declarations: [
@@ -59,7 +62,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     AddMachineComponent,
     FactoryComponent,
     AddSensorComponent,
-    SensorDetailsComponent
+    SensorDetailsComponent,
+    AddToWorkShiftComponent
   ],
   imports: [
     BrowserModule,
@@ -88,6 +92,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     SensorRepositoryImpl,
     FormBuilder,
     RoleGuard,
+    WorkShiftService,
+    WorkShiftRepositoryImpl,
     {
       provide: WebSocketService,
       useFactory: rxStompServiceFactory,

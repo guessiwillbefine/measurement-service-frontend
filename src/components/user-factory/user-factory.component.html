@@ -1,8 +1,10 @@
 <header-component></header-component>
 <div *ngIf="factory$ | async as factory">
-  <div class="factory-name">{{ factory.name}}</div>
-  <div *ngFor="let machine of factory.machines">
-    <app-machine [machine]="machine"></app-machine>
-  </div>
+  <ng-container *ngIf="user$ | async as user">
+    <div class=" factory-name">{{ factory.name}}</div>
+    <div *ngFor="let machine of factory.machines">
+      <app-machine [machine]="machine" [user]="user"></app-machine>
+    </div>
+  </ng-container>
 </div>
 

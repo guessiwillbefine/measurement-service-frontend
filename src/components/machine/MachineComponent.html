@@ -2,8 +2,11 @@
 "machine-active": machine.activity === "ACTIVE",
 "machine-inactive": machine.activity === "INACTIVE"}'>
 
-<div><a routerLink="/machines/{{ machine.id }}">{{ machine.name }}</a></div>
-<div>{{ machine.model }}</div>
-<div>{{ machine.type }}</div>
-<div>{{ machine.activity }}</div>
+  <div><a routerLink="/machines/{{ machine.id }}">{{ machine.name }}</a></div>
+  <div>{{ machine.model }}</div>
+  <div>{{ machine.type }}</div>
+  <div>{{ machine.activity }}</div>
+    <ng-container *ngIf="user.role === role.WORKER">
+      <add-work-shift [machine]="machine" [user]="user"></add-work-shift>
+    </ng-container>
 </div>

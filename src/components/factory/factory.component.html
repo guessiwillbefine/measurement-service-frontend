@@ -2,7 +2,9 @@
 <ng-container *ngIf="showMachines">
   <ng-container *ngIf="factory.machines.length > 0; else noMachines">
     <div *ngFor="let machine of factory.machines">
-      <app-machine [machine]="machine"></app-machine>
+      <ng-container *ngIf="user$ | async as user">
+        <app-machine [machine]="machine" [user]="user"></app-machine>
+      </ng-container>
     </div>
   </ng-container>
   <ng-template #noMachines>
