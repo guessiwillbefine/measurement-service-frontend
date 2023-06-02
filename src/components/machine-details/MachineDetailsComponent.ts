@@ -127,7 +127,6 @@ export class MachineDetailsComponent implements OnInit {
   public subscribeToQueue(userId: string) {
     return this.socketService.watch(UrlConstants.SOCKET.MEASURE_QUEUE(userId))
       .subscribe(response => {
-        console.log(response)
         try {
           this.sensorsMeasureResponse = JSON.parse(response.body);
         } catch (error) {

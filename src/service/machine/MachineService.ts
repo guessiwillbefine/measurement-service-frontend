@@ -10,6 +10,9 @@ export class MachineService {
   getMachineById(id: string) {
     return this.machineRepository.getMachineById(id);
   }
+  getBySensorId(id: string) {
+    return this.machineRepository.getBySensorId(id);
+  }
 
   addMachine(machine: MachineForDto) {
     return this.machineRepository.addMachine(machine);

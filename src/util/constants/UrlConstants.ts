@@ -33,6 +33,9 @@ export class UrlConstants {
     public static readonly MACHINE_BY_ID = function (id: string) {
       return `${UrlConstants.ADDRESS}/machines/${id}`
     }
+    public static readonly MACHINE_BY_SENSOR_ID = function (id: string) {
+      return `${UrlConstants.ADDRESS}/machines?sensor=${id}`
+    }
     public static readonly ADD_MACHINE = `${UrlConstants.ADDRESS}/machines`;
   }
 

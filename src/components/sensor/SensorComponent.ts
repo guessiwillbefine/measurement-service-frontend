@@ -10,5 +10,4 @@ import {measureMessage} from "../../entity/DTO/SocketMessageDto";
 export class SensorComponent {
   @Input() sensor: Sensor;
   @Input() measure: measureMessage | undefined;
-
 }
