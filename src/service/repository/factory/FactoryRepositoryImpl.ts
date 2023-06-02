@@ -36,15 +36,4 @@ export class FactoryRepositoryImpl implements FactoryRepository {
 
     return this.http.get<Factory[]>(this.factoryConstants.ALL_FACTORIES, options);
   }
-
-  // ngOnInit(): void {
-  //   console.log('Factory Repository start OnInit()')
-  //
-  //   this.userService.getCurrentUser().subscribe(user => {
-  //     console.log(user)
-  //     this.user = user
-  //   })
-  //
-  //   console.log('Factory Repository end OnInit()')
-  // }
 }

@@ -12,7 +12,6 @@ export class WebSocketService extends RxStomp {
 }
 
 export function rxStompServiceFactory() {
-  console.log(UrlConstants.SOCKET.CONNECTION_URL)
   const rxStomp = new WebSocketService();
   rxStomp.activate();
   rxStomp.configure({

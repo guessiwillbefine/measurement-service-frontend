@@ -35,9 +35,6 @@ export class AddMachineComponent implements OnInit {
 
   ngOnInit(): void {
     this.factoriesInit();
-    for (let type in this.machineType) {
-      console.log(type)
-    }
   }
 
   private factoriesInit() {

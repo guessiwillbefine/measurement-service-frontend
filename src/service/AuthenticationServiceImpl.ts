@@ -15,7 +15,6 @@ export class AuthenticationServiceImpl implements AuthenticationService {
   }
 
   authenticate(username: string, password: string) {
-    console.log(this.authConstants.AUTHENTICATION);
     const data =
       {
         username: username,

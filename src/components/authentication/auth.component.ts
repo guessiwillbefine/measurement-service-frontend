@@ -1,6 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {AuthenticationService} from "../../service/AuthenticationService";
 import {AuthenticationServiceImpl} from "../../service/AuthenticationServiceImpl";
 
 @Component({
@@ -23,7 +22,6 @@ export class AuthComponent implements OnInit{
 
   /** если текущий урл - logout, очистим токен */
   ngOnInit(): void {
-    console.log(this.router.url);
     if (this.router.url == '/logout') {
       this.authenticationService.logout();
     }

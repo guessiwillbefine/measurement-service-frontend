@@ -35,7 +35,6 @@ export class AddSensorComponent {
 
   public addSensor() {
     this.newSensor.machineId = this.id ? parseInt(this.id, 10) || 0 : 0;
-    console.log(this.newSensor)
     this.sensorService.addSensor(this.newSensor).subscribe(() => {
         this.router.navigate(['/machines/' + this.id])
       },

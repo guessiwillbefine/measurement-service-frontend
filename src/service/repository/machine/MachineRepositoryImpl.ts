@@ -50,4 +50,11 @@ export class MachineRepositoryImpl implements MachineRepository {
 
     return this.http.patch<any>(this.machineConstants.MACHINE_BY_ID(id), machine, httpOptions);
   }
+
+  getBySensorId(id: string) {
+    const options = {
+      headers: {Authorization: `Bearer ${this.jwtService.getToken()}`},
+    };
+    return this.http.get<MachineForView>(this.machineConstants.MACHINE_BY_SENSOR_ID(id), options);
+  }
 }
